@@ -7,15 +7,15 @@ from fabric.colors import green
     功能： 管理pyspider的各个组件的启动
 """
 
-env.user = 'forker'
-env.password = 'forkerLinux'
+env.user = 'app'
+env.password = '123456'
 env.roledefs = {
     'result_worker': [],
     'fetcher': ['192.168.12.58'],
     'processor': [],
     'scheduler': [],
     'webui': ['192.168.12.58'],
-    'public': []
+    'public': ['192.168.12.58']
 }
 env.conf_file = '/home/app/jd_spider/supervisor.conf'
 
@@ -67,6 +67,6 @@ def go():
         'scheduler': scheduler_task,
         'webui': webui_task
     }
-    for role in env.roledefs:
-        if len(env.roledefs[role]) > 0:
+    for index, role in enumerate(env.roledefs):
+        if len(env.roledefs[role]) > 0 and index != 5:
             execute(task_dict[role], param='start')
